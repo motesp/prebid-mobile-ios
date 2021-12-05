@@ -105,6 +105,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
         viewController?.view.addSubview(mopubNativeAdUnit!)
     }
     
+    // FIXME: Disabled because of the resultCode: Prebid Server did not return bids
     func testAppNexusDFPBannerSanityAppCheckTest() {
         
         //given
@@ -458,6 +459,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
         XCTAssertEqual(2, fetchDemandCount)
     }
     
+    // FIXME: Disabled because of the resultCode: Prebid Server did not return bids
     func testDFPNativeSanityAppCheckTest() {
         //given
         loadSuccesfulException = expectation(description: "\(#function)")
@@ -525,6 +527,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
         XCTAssertEqual(2, fetchDemandCount)
     }
 
+    // FIXME: Disabled because of the resultCode: Prebid Server did not return bids
     func testAppNexusMoPubBannerSanityAppCheckTest() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
@@ -716,6 +719,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
         XCTAssertEqual(2, fetchDemandCount)
     }
     
+    // FIXME: Disabled because of the resultCode: Prebid Server did not return bids
     func testMopubNativeSanityAppCheckTest() {
         //given
         loadSuccesfulException = expectation(description: "\(#function)")
