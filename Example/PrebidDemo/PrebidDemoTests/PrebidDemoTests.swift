@@ -147,7 +147,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
         
         //given
         setUpAppRubicon()
-        
+        Prebid.shared.storedAuctionResponse = "1001-rubicon-300x250"
         loadSuccesfulException = expectation(description: "\(#function)")
         
         timeoutForRequest = 30.0
@@ -245,6 +245,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
         
         //Logic
         setUpAppRubicon()
+        Prebid.shared.storedAuctionResponse = "1001-rubicon-300x250"
         timeoutForRequest = 30.0
         
         let prebidbBannerAdUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_RUBICON, size: CGSize(width: 300, height: 250))
