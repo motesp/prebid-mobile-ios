@@ -1424,38 +1424,37 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
         return viewController
     }
     
-    func adViewDidLoadAd(_ view: MPAdView!) {
+    func adViewDidLoadAd(_ view: MPAdView!, adSize: CGSize) {
         print("adViewDidReceiveAd")
         
         didLoadAdByAdServerHelper(view: view)
     }
 
-    func adViewDidFail(toLoadAd view: MPAdView!) {
+    func adView(_ view: MPAdView!, didFailToLoadAdWithError error: Error!) {
         print("adViewDidFail")
         loadSuccesfulException = nil
     }
 
     //MARK: - MPInterstitialAdControllerDelegate
     func interstitialDidLoadAd(_ interstitial: MPInterstitialAdController!) {
-        print("Ad ready")
+        print("interstitialDidLoadAd")
         if (self.mopubInterstitial?.ready ?? true) {
             self.mopubInterstitial?.show(from: viewController)
         }
     }
-
-    func interstitialDidFail(toLoadAd interstitial: MPInterstitialAdController!) {
-        print("Ad not ready")
+    
+    func interstitialDidFail(toLoadAd interstitial: MPInterstitialAdController!, withError error: Error!) {
+        print("interstitialDidFail")
         loadSuccesfulException = nil
     }
-
-    func interstitialDidAppear(_ interstitial: MPInterstitialAdController!) {
-        print("ad appeared")
-
-        didLoadAdByAdServerHelper(view: self.viewController!.presentedViewController!.view)
+    
+    func interstitialWillPresent(_ interstitial: MPInterstitialAdController!) {
+        print("interstitialWillPresent")
     }
-
-    func interstitialWillAppear(_ interstitial: MPInterstitialAdController!) {
-        print("ad appeared")
+    
+    func interstitialDidPresent(_ interstitial: MPInterstitialAdController!) {
+        print("interstitialDidPresent")
+        didLoadAdByAdServerHelper(view: self.viewController!.presentedViewController!.view)
     }
     
     //MARK: - private zone
