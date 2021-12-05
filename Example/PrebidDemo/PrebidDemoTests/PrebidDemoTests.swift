@@ -556,7 +556,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
         
         //given
         setUpAppRubicon()
-        
+        Prebid.shared.storedAuctionResponse = "1001-rubicon-300x250"
         loadSuccesfulException = expectation(description: "\(#function)")
         
         timeoutForRequest = 20.0
@@ -640,13 +640,14 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
 
     func testMoPubInterstitialSanityAppCheckTest() {
         loadSuccesfulException = expectation(description: "\(#function)")
-        
+        setUpAppRubicon()
+        Prebid.shared.storedAuctionResponse = "1001-rubicon-300x250"
         timeoutForRequest = 20.0
-        let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
+        let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_RUBICON)
+        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_RUBICON)
         sdkConfig.globalMediationSettings = []
         MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        mopubInterstitial = MPInterstitialAdController(forAdUnitId: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
+        mopubInterstitial = MPInterstitialAdController(forAdUnitId: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_RUBICON)
         mopubInterstitial?.delegate = self
         interstitialUnit.fetchDemand(adObject: mopubInterstitial!) { (resultCode: ResultCode) in
             if resultCode == ResultCode.prebidDemandFetchSuccess {
