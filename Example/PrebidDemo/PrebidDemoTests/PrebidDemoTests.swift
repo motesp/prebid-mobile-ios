@@ -17,6 +17,7 @@ import XCTest
 import MoPubSDK
 import GoogleMobileAds
 import WebKit
+import TestUtils
 @testable import PrebidMobile
 @testable import PrebidDemoSwift
 
@@ -32,7 +33,10 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
     
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-
+        PBHTTPStubbingManager.shared().disable()
+        PBHTTPStubbingManager.shared().removeAllStubs()
+        PBHTTPStubbingManager.shared().broadcastRequests = false
+        PBHTTPStubbingManager.shared().ignoreUnstubbedRequests = true
         setUpAppNexus()
        // Prebid.shared.shareGeoLocation = true
         timeoutForRequest = 35.0
