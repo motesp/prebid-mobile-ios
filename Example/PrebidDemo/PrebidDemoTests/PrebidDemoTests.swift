@@ -984,20 +984,23 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
     func testYOBWith2018() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
+        setUpAppRubicon()
+        Prebid.shared.storedAuctionResponse = "1001-rubicon-300x250"
+        
         let targeting = Targeting.shared
         XCTAssertNoThrow(try targeting.setYearOfBirth(yob: 2018))
         let value = Targeting.shared.yearOfBirth
         XCTAssertTrue((value == 2018))
 
-        let adUnit = BannerAdUnit(configId: "47706260-ee91-4cd7-b656-2185aca89f59", size: CGSize(width: 300, height: 250))
+        let adUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_RUBICON, size: CGSize(width: 300, height: 250))
 
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "a935eac11acd416f92640411234fbba6")
+        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_RUBICON)
         sdkConfig.globalMediationSettings = []
         MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        let mopubBanner = MPAdView(adUnitId: "a935eac11acd416f92640411234fbba6")
+        let mopubBanner = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_RUBICON)
         mopubBanner?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
         adUnit.fetchDemand(adObject: mopubBanner!) { (resultCode: ResultCode) in
-            XCTAssertEqual(resultCode, ResultCode.prebidDemandNoBids)
+            XCTAssertEqual(resultCode, ResultCode.prebidDemandFetchSuccess, "expected:Success instead of:\(String(describing: resultCode.name))")
             self.loadSuccesfulException?.fulfill()
         }
         
@@ -1007,20 +1010,23 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
     func testYOBWith1989() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
+        setUpAppRubicon()
+        Prebid.shared.storedAuctionResponse = "1001-rubicon-300x250"
+        
         let targeting = Targeting.shared
         XCTAssertNoThrow(try targeting.setYearOfBirth(yob: 1989))
         let value = Targeting.shared.yearOfBirth
         XCTAssertTrue((value == 1989))
 
-        let adUnit = BannerAdUnit(configId: "47706260-ee91-4cd7-b656-2185aca89f59", size: CGSize(width: 300, height: 250))
+        let adUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_RUBICON, size: CGSize(width: 300, height: 250))
 
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "a935eac11acd416f92640411234fbba6")
+        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_RUBICON)
         sdkConfig.globalMediationSettings = []
         MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        let mopubBanner = MPAdView(adUnitId: "a935eac11acd416f92640411234fbba6")
+        let mopubBanner = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_RUBICON)
         mopubBanner?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
         adUnit.fetchDemand(adObject: mopubBanner!) { (resultCode: ResultCode) in
-            XCTAssertEqual(resultCode, ResultCode.prebidDemandFetchSuccess, "expected:Success instead of:\(resultCode.name)")
+            XCTAssertEqual(resultCode, ResultCode.prebidDemandFetchSuccess, "expected:Success instead of:\(String(describing: resultCode.name))")
             self.loadSuccesfulException?.fulfill()
         }
         
