@@ -155,9 +155,8 @@ class BidManager: NSObject {
     func getTmaxRequest(_ data: Data) -> Int {
         do {
             let response: [String: AnyObject] = try JSONSerialization.jsonObject(with: data, options: []) as! [String: AnyObject]
-            let ext = response["ext"] as! [String: AnyObject]
-            if (ext["tmaxrequest"] != nil) {
-                return  ext["tmaxrequest"] as! Int
+            if let ext = response["ext"] as? [String: AnyObject], let tmaxrequest = ext["tmaxrequest"] as? Int {
+                return tmaxrequest
             }
         } catch let error {
             Log.debug(error.localizedDescription)
